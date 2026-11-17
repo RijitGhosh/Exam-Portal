@@ -1,0 +1,113 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Testing Control Panel</title><link rel="stylesheet" href="style.css">
+<script>try{document.documentElement.dataset.theme=localStorage.theme||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light')}catch(e){}</script>
+<style>
+body{display:flex;flex-direction:column;height:100vh;overflow:hidden}
+.tool{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:8px 14px;background:var(--card);border-bottom:1px solid var(--border)}
+.split{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px;min-height:0}
+.pane{background:var(--card);border:1px solid var(--border);border-radius:10px;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+.pane h3{margin:0;padding:8px 12px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+#screen{flex:1;display:flex;align-items:center;justify-content:center;background:var(--soft);min-height:0}
+#frame{max-width:100%;max-height:100%;object-fit:contain}
+#list{flex:1;overflow:auto}
+#list table{font-size:13px}#list td,#list th{padding:5px 7px}
+#list tr.sel{background:var(--soft)}#list tr{cursor:pointer}
+.st{font-weight:700;font-size:12px;padding:2px 8px;border-radius:99px;border:1px solid var(--border)}
+.PENDING{color:var(--muted)}.RUNNING{color:var(--primary);border-color:var(--primary)}.PASS{color:var(--ok);border-color:var(--ok)}.FAIL{color:var(--bad);border-color:var(--bad)}
+.tag{font-size:11px;padding:1px 6px;border-radius:4px;background:#fde68a;color:#78350f;margin-left:4px}
+.progress{height:8px;background:var(--soft);border-radius:4px;overflow:hidden;margin:6px 12px}.progress div{height:100%;background:var(--primary);width:0;transition:width .2s}
+.stats{display:flex;gap:14px;padding:4px 12px;font-size:13px;flex-wrap:wrap}
+#detail{border-top:1px solid var(--border);padding:10px 12px;max-height:38%;overflow:auto;font-size:13px}
+#detail img{max-width:100%;border:1px solid var(--border);border-radius:6px;margin-top:6px}
+.kv{display:grid;grid-template-columns:110px 1fr;gap:3px 8px}.kv b{color:var(--muted)}
+.sub{display:flex;gap:6px;padding:6px 10px;border-bottom:1px solid var(--border)}.sub button{padding:4px 12px}
+#metrics{display:none;flex:1;overflow:auto;padding:12px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-bottom:12px}.cards div{border:1px solid var(--border);border-radius:8px;padding:8px}.cards b{display:block;font-size:22px}
+.note{font-size:12px;color:var(--muted)}.pill{display:inline-block;padding:1px 8px;border-radius:99px;font-size:11px;border:1px solid var(--border);margin-left:6px}
+.meas{color:var(--ok)}.illus{color:var(--warn)}
+@media(max-width:900px){body{height:auto;overflow:auto}.split{grid-template-columns:1fr}#screen{min-height:260px}}
+</style></head><body>
+<header><h1>Testing Control Panel</h1><a href="/" target="_blank">Open application</a><button id="theme">Dark mode</button></header>
+<div class="tool">
+ <label>Speed <select id="mode"><option value="presentation">Presentation Speed</option><option value="normal">Normal Speed</option><option value="fast">Fast Full Test</option></select></label>
+ <label><input type="checkbox" id="headed"> Also open real browser window</label>
+ <button class="btn" id="runAll">Run Automated Tests</button>
+ <button class="btn alt" id="runSel">Run Selected Tests</button>
+ <button class="btn alt" id="runOne">Run This Test</button>
+ <button class="btn alt" id="again">Run Again</button>
+ <button class="btn alt" id="reset">Reset Test Results</button>
+ <span style="flex:1"></span>
+ <a class="btn alt sm" id="lnkShots" target="_blank">View Screenshots</a><a class="btn alt sm" id="lnkVid" target="_blank">View Execution Video</a><a class="btn alt sm" id="lnkRep" target="_blank">View HTML Report</a><a class="btn alt sm" id="lnkCsv" download>Export Excel/CSV</a>
+</div>
+<div class="split">
+ <section class="pane"><h3>Live Application Browser <span class="muted" id="laneinfo"></span></h3><div id="screen"><img id="frame" alt="" hidden><p class="muted" id="ph" style="padding:20px;text-align:center">Click “Run Automated Tests”.<br>The browser under test (admin and student screens) appears here.</p></div></section>
+ <section class="pane"><h3>Live Testing Dashboard <span id="clock" class="muted"></span></h3>
+  <div class="sub"><button class="btn sm" id="tabT">Test cases</button><button class="btn sm alt" id="tabM">Quality metrics</button></div>
+  <div id="tests" style="display:flex;flex-direction:column;flex:1;min-height:0">
+   <div class="progress"><div id="bar"></div></div><div class="stats" id="stats"></div>
+   <div id="list"></div><div id="detail"><span class="muted">Click a test case to see details. Tick “Fail on purpose” to choose demonstration failures before the run.</span></div></div>
+  <div id="metrics"></div></section>
+</div>
+<script>
+const $=(s,r=document)=>r.querySelector(s);const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function setTheme(t){document.documentElement.dataset.theme=t;try{localStorage.theme=t}catch{}$('#theme').textContent=t==='dark'?'Light mode':'Dark mode'}
+$('#theme').onclick=()=>setTheme(document.documentElement.dataset.theme==='dark'?'light':'dark');setTheme(document.documentElement.dataset.theme||'light');
+let cat=[],res={},demo=new Set(),pick=new Set(),cur=null,running=false,runId=null,t0=0,lastReq=null,order=[];
+const api=(p,b)=>fetch(p,{method:b?'POST':'GET',headers:{'Content-Type':'application/json'},body:b?JSON.stringify(b):undefined}).then(r=>r.json());
+function row(t){const r=res[t.id]||{};const st=r.status||(running&&order.includes(t.id)?'PENDING':'—');const d=demo.has(t.id);
+ return `<tr data-id="${t.id}" class="${cur===t.id?'sel':''}"><td><input type="checkbox" class="ck-run" data-id="${t.id}" ${pick.has(t.id)?'checked':''} ${running?'disabled':''} title="Include in Run Selected Tests"></td>
+ <td><input type="checkbox" class="ck-fail" data-id="${t.id}" ${d?'checked':''} ${running?'disabled':''}></td><td>${t.id}</td><td>${esc(t.name)}<div class="note">${d?'<b style="color:var(--bad)">Selected: will intentionally fail</b>':'Not selected: normal test'}</div></td>
+ <td><span class="st ${st}">${st}</span>${r.intentional?'<span class="tag">INTENTIONAL</span>':''}</td><td>${r.ms!=null?(r.ms/1000).toFixed(1)+'s':''}</td></tr>`}
+function draw(){
+ const groups=[...new Set(cat.map(t=>t.group))];
+ $('#list').innerHTML=`<table><thead><tr><th>Run</th><th>Fail on purpose</th><th>ID</th><th>Test case</th><th>Status</th><th>Time</th></tr></thead><tbody>`+groups.map(g=>`<tr><td colspan="6" style="background:var(--soft);font-weight:600">${g}</td></tr>`+cat.filter(t=>t.group===g).map(row).join('')).join('')+'</tbody></table>';
+ $('#list').querySelectorAll('tr[data-id]').forEach(tr=>tr.onclick=e=>{if(e.target.tagName==='INPUT')return;cur=tr.dataset.id;draw();detail()});
+ $('#list').querySelectorAll('.ck-fail').forEach(c=>c.onchange=()=>{c.checked?demo.add(c.dataset.id):demo.delete(c.dataset.id);draw()});
+ $('#list').querySelectorAll('.ck-run').forEach(c=>c.onchange=()=>{c.checked?pick.add(c.dataset.id):pick.delete(c.dataset.id)});
+ const vals=order.map(i=>res[i]).filter(Boolean);const done=vals.filter(r=>r.status==='PASS'||r.status==='FAIL');
+ const pass=done.filter(r=>r.status==='PASS').length,fi=done.filter(r=>r.status==='FAIL'&&r.intentional).length,fg=done.filter(r=>r.status==='FAIL'&&!r.intentional).length;
+ $('#bar').style.width=order.length?(done.length*100/order.length)+'%':'0';
+ $('#stats').innerHTML=order.length?`<span>Progress <b>${done.length}/${order.length}</b></span><span class="PASS">Pass <b>${pass}</b></span><span class="FAIL">Intentional fail <b>${fi}</b></span><span class="FAIL">Genuine fail <b>${fg}</b></span>`:`<span>${cat.length} test cases · ${demo.size} selected to fail on purpose</span>`;
+ ['runAll','runSel','runOne','again','reset'].forEach(i=>$('#'+i).disabled=running);$('#again').disabled=running||!lastReq;
+}
+function detail(){const t=cat.find(x=>x.id===cur);if(!t)return;const r=res[cur]||{};let h=`<div class="kv"><b>Test case</b><span>${cur} · ${esc(t.name)}</span><b>Status</b><span><span class="st ${r.status||'PENDING'}">${r.status||'not run'}</span> ${r.intentional?'<span class="tag">INTENTIONAL DEMONSTRATION FAILURE</span>':''}</span>`;
+ if(r.status==='FAIL'||r.status==='PASS'){ if(r.status==='FAIL')h+=`<b>Expected</b><span>${esc(r.expected)}${r.intentional?' <i>(deliberately incorrect)</i>':''}</span><b>Actual</b><span>${esc(r.actual)}</span><b>Explanation</b><span>${esc(r.explanation)}</span>`;h+=`<b>Duration</b><span>${(r.ms/1000).toFixed(2)} s</span>`}
+ h+='</div>';if(r.shots&&r.shots.length)h+=`<a href="/evidence/${runId}/${r.shots[r.shots.length-1]}" target="_blank"><img src="/evidence/${runId}/${r.shots[r.shots.length-1]}" alt="Screenshot evidence"></a>`;$('#detail').innerHTML=h}
+function links(){api('/panel/links').then(l=>{[['lnkShots','screenshots'],['lnkVid','videos'],['lnkRep','report'],['lnkCsv','csv']].forEach(([id,k])=>{const a=$('#'+id);if(l[k]){a.href=l[k];a.style.opacity=1;a.style.pointerEvents='auto'}else{a.removeAttribute('href');a.style.opacity=.5;a.style.pointerEvents='none'}})})}
+async function start(ids){const body={ids,demo:[...demo],mode:$('#mode').value,headed:$('#headed').checked};lastReq=body;const r=await api('/panel/run',body);if(r.error)alert(r.error)}
+$('#runAll').onclick=()=>start('ALL');
+$('#runSel').onclick=()=>{if(!pick.size)return alert('Tick the “Run” box of one or more test cases first.');start([...pick])};
+$('#runOne').onclick=()=>{if(!cur)return alert('Click a test case row first.');start([cur])};
+$('#again').onclick=()=>lastReq&&start(lastReq.ids);
+$('#reset').onclick=async()=>{if(confirm('Delete all test results, screenshots, videos and reports?'))await api('/panel/reset',{})};
+$('#tabT').onclick=()=>{$('#tests').style.display='flex';$('#metrics').style.display='none';$('#tabT').className='btn sm';$('#tabM').className='btn sm alt'};
+$('#tabM').onclick=()=>{$('#tests').style.display='none';$('#metrics').style.display='block';$('#tabM').className='btn sm';$('#tabT').className='btn sm alt';metrics()};
+async function metrics(){const m=await api('/panel/metrics');const el=$('#metrics');
+ if(!m.total){el.innerHTML='<p class="muted">Run the tests to see measured quality metrics.</p>';return}
+ const post=+(localStorage.postDefects||0),have=localStorage.postDefects!==undefined&&localStorage.postDefects!=='';
+ const dre=m.genuine+post>0?(m.genuine*100/(m.genuine+post)).toFixed(1)+'%':'N/A (no defects found)';
+ const rag=m.passPct>=95?['Green','var(--ok)']:m.passPct>=80?['Yellow','var(--warn)']:['Red','var(--bad)'];
+ let chart='<p class="note">Needs at least 3 runs in the same speed mode.</p>';
+ if(m.control){const c=m.control,W=420,H=150,mx=Math.max(c.ucl,...c.points)*1.1,y=v=>H-10-(v/mx)*(H-20),x=i=>20+i*(W-40)/Math.max(1,c.points.length-1);
+  chart=`<svg viewBox="0 0 ${W} ${H}" width="100%" style="max-width:${W}px"><line x1="0" x2="${W}" y1="${y(c.ucl)}" y2="${y(c.ucl)}" stroke="var(--bad)" stroke-dasharray="4"/><line x1="0" x2="${W}" y1="${y(c.mean)}" y2="${y(c.mean)}" stroke="var(--primary)"/><line x1="0" x2="${W}" y1="${y(c.lcl)}" y2="${y(c.lcl)}" stroke="var(--bad)" stroke-dasharray="4"/><polyline fill="none" stroke="var(--text)" points="${c.points.map((p,i)=>x(i)+','+y(p)).join(' ')}"/>${c.points.map((p,i)=>`<circle cx="${x(i)}" cy="${y(p)}" r="3.5" fill="${p>c.ucl||p<c.lcl?'var(--bad)':'var(--text)'}"/>`).join('')}</svg>
+  <p class="note">Centre line ${c.mean.toFixed(1)}s · UCL ${c.ucl.toFixed(1)}s · LCL ${c.lcl.toFixed(1)}s (mean ± 3σ, ${c.points.length} runs, ${m.mode} mode). Points inside the limits = stable process.</p>`}
+ el.innerHTML=`<p class="note">Run <b>${m.run}</b> · mode <b>${m.mode}</b> <span class="pill meas">MEASURED</span></p>
+ <div class="cards"><div>Total test cases<b>${m.total}</b></div><div>Passed<b style="color:var(--ok)">${m.passed}</b></div><div>Failed<b style="color:var(--bad)">${m.failed}</b></div><div>Intentional demo failures<b>${m.intentional}</b></div><div>Genuine defects<b>${m.genuine}</b></div><div>Pass percentage<b>${m.passPct}%</b></div><div>Execution time<b>${m.wallSec}s</b></div></div>
+ <p><b>In-process assessment rating</b> (Red/Yellow/Green): <b style="color:${rag[1]}">${rag[0]}</b> <span class="note">rule used here: ≥95% Green, 80–94% Yellow, below 80% Red on pass percentage</span></p>
+ <h3>Defect density <span class="pill meas">MEASURED</span></h3><p>${m.genuine} genuine defects ÷ ${m.kloc} KLOC = <b>${m.density} defects/KLOC</b></p><p class="note">Size = ${m.loc} non-blank lines of application source (server/index.js, db.js, questionBank.js, public/app.js, style.css, index.html). Intentional demonstration failures are not defects and are excluded.</p>
+ <h3>Defect Removal Efficiency (DRE)</h3><p>DRE = defects removed before release ÷ (defects removed before release + defects found after release) × 100</p>
+ <p>Found by testing (pre-release): <b>${m.genuine}</b> <span class="pill meas">MEASURED</span><br>Found after release: <input id="post" type="number" min="0" value="${have?post:''}" placeholder="enter real count" style="width:130px"> <span class="pill illus">YOUR INPUT</span> → DRE = <b id="dre">${have?dre:'enter post-release defects'}</b></p>
+ <h3>Average defect resolution time</h3><p>${m.resolutionHours!=null?`<b>${m.resolutionHours.toFixed(1)} hours</b> <span class="pill meas">MEASURED</span>`:'Not available - no defect resolution data recorded.'}</p>
+ <h3>Control chart of full-run time (SPC)</h3>${chart}
+ <h3>Reference values <span class="pill illus">ILLUSTRATIVE, NOT MEASURED</span></h3><p class="note">Industry leaders DRE ≈ 95%+, average ≈ 85%. Shown only for comparison.</p>`;
+ const inp=$('#post');if(inp)inp.oninput=()=>{localStorage.postDefects=inp.value;metrics()}}
+const ev=new EventSource('/panel/events');
+ev.onmessage=e=>{const d=JSON.parse(e.data);
+ if(d.type==='frame'){const f=$('#frame');f.src='data:image/jpeg;base64,'+d.data;f.hidden=false;$('#ph').hidden=true;if(d.lane)$('#laneinfo').textContent='lane '+d.lane}
+ else if(d.type==='run-start'){running=true;runId=d.state.runId;order=d.state.order;res=d.state.results;t0=d.state.startedAt;cur=null;$('#detail').innerHTML='';draw()}
+ else if(d.type==='test'){res[d.id]={...res[d.id],...d};draw();if(cur===d.id)detail()}
+ else if(d.type==='run-end'){running=false;draw();links();if(cur)detail()}
+ else if(d.type==='reset'){res={};order=[];runId=null;cur=null;$('#detail').textContent='Results cleared.';$('#frame').hidden=true;$('#ph').hidden=false;draw();links()}};
+setInterval(()=>{if(running)$('#clock').textContent='elapsed '+((Date.now()-t0)/1000).toFixed(0)+'s';else if(t0)$('#clock').textContent='last run '+(($('#clock').dataset.w)||'')},500);
+api('/panel/state').then(s=>{cat=s.catalog;demo=new Set(s.defaultDemo);running=s.running;runId=s.runId;order=s.order;res=s.results;t0=s.startedAt;lastReq=s.lastReq;draw();links()});
+</script></body></html>

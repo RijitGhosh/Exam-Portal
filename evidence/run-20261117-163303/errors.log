@@ -1,0 +1,8 @@
+[A11] Admin deletes a question
+INTENTIONAL DEMONSTRATION FAILURE. "Question count after delete" was compared with a deliberately incorrect expected value (11). The application behaved correctly (actual: 10). This is not an application defect.
+Error: INTENTIONAL_DEMO::{"label":"Question count after delete","expected":"11","actual":"10"}
+
+[X08] Invalid answers are rejected (HTTP 400)
+INTENTIONAL DEMONSTRATION FAILURE. "HTTP status for choice 9" was compared with a deliberately incorrect expected value (200). The application behaved correctly (actual: 400). This is not an application defect.
+Error: INTENTIONAL_DEMO::{"label":"HTTP status for choice 9","expected":200,"actual":400}
+

@@ -1,0 +1,35 @@
+[
+  {
+    "runId": "run-20261116-080307",
+    "mode": "presentation",
+    "startedAt": "2026-11-16T08:03:08.102Z",
+    "wallMs": 44320,
+    "total": 47,
+    "passed": 45,
+    "failed": 2,
+    "intentional": 2,
+    "genuine": 0
+  },
+  {
+    "runId": "run-20261116-082936",
+    "mode": "presentation",
+    "startedAt": "2026-11-16T08:29:36.336Z",
+    "wallMs": 56373,
+    "total": 47,
+    "passed": 45,
+    "failed": 2,
+    "intentional": 2,
+    "genuine": 0
+  },
+  {
+    "runId": "run-20261117-163303",
+    "mode": "presentation",
+    "startedAt": "2026-11-17T16:33:03.743Z",
+    "wallMs": 43195,
+    "total": 47,
+    "passed": 45,
+    "failed": 2,
+    "intentional": 2,
+    "genuine": 0
+  }
+]

@@ -1,0 +1,21 @@
+{
+  "name": "exam-portal",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "demo": "node scripts/demo.js",
+    "start": "node server/index.js",
+    "setup": "npx playwright install chromium",
+    "test": "TEST_MODE=1 npx playwright test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@playwright/test": "^1.65.1",
+    "better-sqlite3": "^13.2.0",
+    "express": "^5.3.0"
+  },
+  "private": true
+}

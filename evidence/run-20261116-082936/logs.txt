@@ -1,0 +1,47 @@
+2026-11-16T08:29:38.221Z PASS A01       571ms Admin login with a wrong password is rejected
+2026-11-16T08:29:38.463Z PASS A02       236ms Admin logs in with valid credentials
+2026-11-16T08:29:40.768Z PASS A03      2297ms Admin adds the four student accounts
+2026-11-16T08:29:41.796Z FAIL A04       561ms (intentional) Admin edits a student record
+2026-11-16T08:29:43.757Z PASS A05      1283ms Admin deletes a student
+2026-11-16T08:29:45.702Z PASS A06      1938ms Admin creates the four examinations with duration and marks
+2026-11-16T08:29:46.653Z PASS A07       945ms Admin edits an examination (duration)
+2026-11-16T08:29:47.606Z PASS A08       943ms Admin adds an MCQ question through the form
+2026-11-16T08:29:47.901Z PASS A09       288ms Admin loads 10 questions into each examination
+2026-11-16T08:29:48.537Z PASS A10       629ms Admin edits a question
+2026-11-16T08:29:49.054Z PASS A11       512ms Admin deletes a question
+2026-11-16T08:29:50.205Z PASS A12      1144ms Admin assigns each examination to its student
+2026-11-16T08:29:50.268Z PASS A13        56ms Admin verifies students, exams, questions and assignments
+2026-11-16T08:29:50.971Z PASS A14       408ms Admin logs out and returns to the login page
+2026-11-16T08:29:51.997Z PASS S1-1      847ms Student 1 logs in and sees only the assigned exam (Software Engineering)
+2026-11-16T08:29:52.516Z PASS S1-2      512ms Student 1 reads instructions and starts the exam
+2026-11-16T08:29:53.586Z PASS S1-3     1064ms Student 1 navigates with Previous, Next and the question palette
+2026-11-16T08:29:56.351Z PASS S1-4     2757ms Student 1 answers all 10 questions and answers are saved
+2026-11-16T08:29:56.633Z PASS S1-5      276ms Student 1 answers are still selected after reloading the page
+2026-11-16T08:29:58.925Z FAIL S1-6     1788ms (intentional) Student 1 submits with confirmation and sees the correct result
+2026-11-16T08:30:00.248Z PASS S2-1      534ms Student 2 logs in and sees only the assigned exam (Database Management Systems)
+2026-11-16T08:30:00.783Z PASS S2-2      528ms Student 2 reads instructions and starts the exam
+2026-11-16T08:30:03.635Z PASS S2-4     2844ms Student 2 answers all 10 questions and answers are saved
+2026-11-16T08:30:05.820Z PASS S2-6     1845ms Student 2 submits with confirmation and sees the correct result
+2026-11-16T08:30:06.497Z PASS S3-1      520ms Student 3 logs in and sees only the assigned exam (Computer Networks)
+2026-11-16T08:30:07.049Z PASS S3-2      541ms Student 3 reads instructions and starts the exam
+2026-11-16T08:30:09.818Z PASS S3-4     2758ms Student 3 answers all 10 questions and answers are saved
+2026-11-16T08:30:11.958Z PASS S3-6     1799ms Student 3 submits with confirmation and sees the correct result
+2026-11-16T08:30:12.596Z PASS S4-1      505ms Student 4 logs in and sees only the assigned exam (Software Testing)
+2026-11-16T08:30:13.098Z PASS S4-2      496ms Student 4 reads instructions and starts the exam
+2026-11-16T08:30:15.783Z PASS S4-4     2679ms Student 4 answers all 10 questions and answers are saved
+2026-11-16T08:30:17.987Z PASS S4-6     1832ms Student 4 submits with confirmation and sees the correct result
+2026-11-16T08:30:19.387Z PASS T01      1207ms Exam is auto-submitted when the timer expires (accelerated test clock)
+2026-11-16T08:30:19.890Z PASS T02       143ms Server rejects answers after the deadline and records the auto-submission
+2026-11-16T08:30:20.163Z PASS X01       104ms Student cannot open another student's examination (HTTP 403)
+2026-11-16T08:30:20.247Z PASS X02        78ms Student cannot use admin APIs (HTTP 403)
+2026-11-16T08:30:20.331Z PASS X03        77ms Unauthenticated requests are rejected (HTTP 401)
+2026-11-16T08:30:20.414Z PASS X04        76ms Wrong password and empty login are rejected
+2026-11-16T08:30:20.547Z PASS X05       128ms Correct answers are never sent to the student before submission
+2026-11-16T08:30:20.683Z PASS X06       128ms Result is not available before submission (HTTP 403)
+2026-11-16T08:30:20.817Z PASS X07       128ms Duplicate submission is rejected (HTTP 409) and the score stays unchanged
+2026-11-16T08:30:20.950Z PASS X08       126ms Invalid answers are rejected (HTTP 400)
+2026-11-16T08:30:21.083Z PASS X09       127ms The server calculates marks and ignores a score sent by the client
+2026-11-16T08:30:21.128Z PASS X10        40ms Passwords are stored as salted hashes
+2026-11-16T08:30:22.311Z PASS X11       893ms Student is blocked from the admin pages in the browser
+2026-11-16T08:30:31.459Z PASS R01      8986ms Admin sees all four submissions with the correct marks
+2026-11-16T08:30:32.626Z PASS R02       267ms Reports show the correct count, average, highest and lowest marks

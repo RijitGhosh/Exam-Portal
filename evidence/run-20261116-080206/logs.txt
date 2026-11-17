@@ -1,0 +1,15 @@
+2026-11-16T08:02:11.783Z PASS A01       798ms Admin login with a wrong password is rejected
+2026-11-16T08:02:12.149Z PASS A02       352ms Admin logs in with valid credentials
+2026-11-16T08:02:14.406Z PASS A03      2249ms Admin adds the four student accounts
+2026-11-16T08:02:15.045Z PASS A04       630ms Admin edits a student record
+2026-11-16T08:02:16.104Z PASS A05      1053ms Admin deletes a student
+2026-11-16T08:02:18.022Z PASS A06      1910ms Admin creates the four examinations with duration and marks
+2026-11-16T08:02:18.954Z PASS A07       927ms Admin edits an examination (duration)
+2026-11-16T08:02:19.905Z PASS A08       943ms Admin adds an MCQ question through the form
+2026-11-16T08:02:20.644Z FAIL A09       272ms (intentional) Admin loads 10 questions into each examination
+2026-11-16T08:02:22.354Z PASS A10       950ms Admin edits a question
+2026-11-16T08:02:22.870Z PASS A11       508ms Admin deletes a question
+2026-11-16T08:02:24.086Z FAIL A12      1005ms Admin assigns each examination to its student
+2026-11-16T08:02:25.355Z FAIL A13       111ms Admin verifies students, exams, questions and assignments
+2026-11-16T08:02:27.156Z PASS A14       800ms Admin logs out and returns to the login page
+2026-11-16T08:03:00.921Z FAIL S1-1        0ms Student 1 logs in and sees only the assigned exam (Software Engineering)

@@ -1,0 +1,671 @@
+{
+  "runId": "run-20261117-163303",
+  "mode": "presentation",
+  "startedAt": "2026-11-17T16:33:03.743Z",
+  "wallMs": 43195,
+  "total": 47,
+  "passed": 45,
+  "failed": 2,
+  "intentional": 2,
+  "genuine": 0,
+  "tests": [
+    {
+      "id": "A01",
+      "name": "Admin login with a wrong password is rejected",
+      "group": "Admin",
+      "status": "PASS",
+      "ms": 510,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/A01/A01-1.png"
+      ]
+    },
+    {
+      "id": "A02",
+      "name": "Admin logs in with valid credentials",
+      "group": "Admin",
+      "status": "PASS",
+      "ms": 245,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/A02/A02-1.png"
+      ]
+    },
+    {
+      "id": "A03",
+      "name": "Admin adds the four student accounts",
+      "group": "Admin",
+      "status": "PASS",
+      "ms": 2258,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/A03/A03-1.png"
+      ]
+    },
+    {
+      "id": "A04",
+      "name": "Admin edits a student record",
+      "group": "Admin",
+      "status": "PASS",
+      "ms": 565,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/A04/A04-1.png"
+      ]
+    },
+    {
+      "id": "A05",
+      "name": "Admin deletes a student",
+      "group": "Admin",
+      "status": "PASS",
+      "ms": 907,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/A05/A05-1.png"
+      ]
+    },
+    {
+      "id": "A06",
+      "name": "Admin creates the four examinations with duration and marks",
+      "group": "Admin",
+      "status": "PASS",
+      "ms": 1854,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/A06/A06-1.png"
+      ]
+    },
+    {
+      "id": "A07",
+      "name": "Admin edits an examination (duration)",
+      "group": "Admin",
+      "status": "PASS",
+      "ms": 924,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/A07/A07-1.png"
+      ]
+    },
+    {
+      "id": "A08",
+      "name": "Admin adds an MCQ question through the form",
+      "group": "Admin",
+      "status": "PASS",
+      "ms": 939,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/A08/A08-1.png"
+      ]
+    },
+    {
+      "id": "A09",
+      "name": "Admin loads 10 questions into each examination",
+      "group": "Admin",
+      "status": "PASS",
+      "ms": 256,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/A09/A09-1.png"
+      ]
+    },
+    {
+      "id": "A10",
+      "name": "Admin edits a question",
+      "group": "Admin",
+      "status": "PASS",
+      "ms": 591,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/A10/A10-1.png"
+      ]
+    },
+    {
+      "id": "A11",
+      "name": "Admin deletes a question",
+      "group": "Admin",
+      "status": "FAIL",
+      "ms": 490,
+      "intentional": true,
+      "expected": "11",
+      "actual": "10",
+      "explanation": "INTENTIONAL DEMONSTRATION FAILURE. \"Question count after delete\" was compared with a deliberately incorrect expected value (11). The application behaved correctly (actual: 10). This is not an application defect.",
+      "shots": [
+        "screenshots/A11/A11-1.png"
+      ]
+    },
+    {
+      "id": "A12",
+      "name": "Admin assigns each examination to its student",
+      "group": "Admin",
+      "status": "PASS",
+      "ms": 1511,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/A12/A12-1.png"
+      ]
+    },
+    {
+      "id": "A13",
+      "name": "Admin verifies students, exams, questions and assignments",
+      "group": "Admin",
+      "status": "PASS",
+      "ms": 57,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/A13/A13-1.png"
+      ]
+    },
+    {
+      "id": "A14",
+      "name": "Admin logs out and returns to the login page",
+      "group": "Admin",
+      "status": "PASS",
+      "ms": 338,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/A14/A14-1.png"
+      ]
+    },
+    {
+      "id": "R01",
+      "name": "Admin sees all four submissions with the correct marks",
+      "group": "Results & reports",
+      "status": "PASS",
+      "ms": 572,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/R01/R01-1.png"
+      ]
+    },
+    {
+      "id": "R02",
+      "name": "Reports show the correct count, average, highest and lowest marks",
+      "group": "Results & reports",
+      "status": "PASS",
+      "ms": 245,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/R02/R02-1.png"
+      ]
+    },
+    {
+      "id": "S1-1",
+      "name": "Student 1 logs in and sees only the assigned exam (Software Engineering)",
+      "group": "Student exam flow",
+      "status": "PASS",
+      "ms": 469,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/S1-1/S1-1-1.png"
+      ]
+    },
+    {
+      "id": "S1-2",
+      "name": "Student 1 reads instructions and starts the exam",
+      "group": "Student exam flow",
+      "status": "PASS",
+      "ms": 475,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/S1-2/S1-2-1.png"
+      ]
+    },
+    {
+      "id": "S1-3",
+      "name": "Student 1 navigates with Previous, Next and the question palette",
+      "group": "Student exam flow",
+      "status": "PASS",
+      "ms": 909,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/S1-3/S1-3-1.png"
+      ]
+    },
+    {
+      "id": "S1-4",
+      "name": "Student 1 answers all 10 questions and answers are saved",
+      "group": "Student exam flow",
+      "status": "PASS",
+      "ms": 2738,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/S1-4/S1-4-1.png"
+      ]
+    },
+    {
+      "id": "S1-5",
+      "name": "Student 1 answers are still selected after reloading the page",
+      "group": "Student exam flow",
+      "status": "PASS",
+      "ms": 275,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/S1-5/S1-5-1.png"
+      ]
+    },
+    {
+      "id": "S1-6",
+      "name": "Student 1 submits with confirmation and sees the correct result",
+      "group": "Student exam flow",
+      "status": "PASS",
+      "ms": 1775,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/S1-6/S1-6-1.png"
+      ]
+    },
+    {
+      "id": "S2-1",
+      "name": "Student 2 logs in and sees only the assigned exam (Database Management Systems)",
+      "group": "Student exam flow",
+      "status": "PASS",
+      "ms": 454,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/S2-1/S2-1-1.png"
+      ]
+    },
+    {
+      "id": "S2-2",
+      "name": "Student 2 reads instructions and starts the exam",
+      "group": "Student exam flow",
+      "status": "PASS",
+      "ms": 473,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/S2-2/S2-2-1.png"
+      ]
+    },
+    {
+      "id": "S2-4",
+      "name": "Student 2 answers all 10 questions and answers are saved",
+      "group": "Student exam flow",
+      "status": "PASS",
+      "ms": 2685,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/S2-4/S2-4-1.png"
+      ]
+    },
+    {
+      "id": "S2-6",
+      "name": "Student 2 submits with confirmation and sees the correct result",
+      "group": "Student exam flow",
+      "status": "PASS",
+      "ms": 1741,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/S2-6/S2-6-1.png"
+      ]
+    },
+    {
+      "id": "S3-1",
+      "name": "Student 3 logs in and sees only the assigned exam (Computer Networks)",
+      "group": "Student exam flow",
+      "status": "PASS",
+      "ms": 486,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/S3-1/S3-1-1.png"
+      ]
+    },
+    {
+      "id": "S3-2",
+      "name": "Student 3 reads instructions and starts the exam",
+      "group": "Student exam flow",
+      "status": "PASS",
+      "ms": 473,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/S3-2/S3-2-1.png"
+      ]
+    },
+    {
+      "id": "S3-4",
+      "name": "Student 3 answers all 10 questions and answers are saved",
+      "group": "Student exam flow",
+      "status": "PASS",
+      "ms": 2638,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/S3-4/S3-4-1.png"
+      ]
+    },
+    {
+      "id": "S3-6",
+      "name": "Student 3 submits with confirmation and sees the correct result",
+      "group": "Student exam flow",
+      "status": "PASS",
+      "ms": 1741,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/S3-6/S3-6-1.png"
+      ]
+    },
+    {
+      "id": "S4-1",
+      "name": "Student 4 logs in and sees only the assigned exam (Software Testing)",
+      "group": "Student exam flow",
+      "status": "PASS",
+      "ms": 469,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/S4-1/S4-1-1.png"
+      ]
+    },
+    {
+      "id": "S4-2",
+      "name": "Student 4 reads instructions and starts the exam",
+      "group": "Student exam flow",
+      "status": "PASS",
+      "ms": 503,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/S4-2/S4-2-1.png"
+      ]
+    },
+    {
+      "id": "S4-4",
+      "name": "Student 4 answers all 10 questions and answers are saved",
+      "group": "Student exam flow",
+      "status": "PASS",
+      "ms": 2620,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/S4-4/S4-4-1.png"
+      ]
+    },
+    {
+      "id": "S4-6",
+      "name": "Student 4 submits with confirmation and sees the correct result",
+      "group": "Student exam flow",
+      "status": "PASS",
+      "ms": 1727,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/S4-6/S4-6-1.png"
+      ]
+    },
+    {
+      "id": "T01",
+      "name": "Exam is auto-submitted when the timer expires (accelerated test clock)",
+      "group": "Timer & auto-submit",
+      "status": "PASS",
+      "ms": 1181,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/T01/T01-1.png"
+      ]
+    },
+    {
+      "id": "T02",
+      "name": "Server rejects answers after the deadline and records the auto-submission",
+      "group": "Timer & auto-submit",
+      "status": "PASS",
+      "ms": 111,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/T02/T02-1.png"
+      ]
+    },
+    {
+      "id": "X01",
+      "name": "Student cannot open another student's examination (HTTP 403)",
+      "group": "Security & validation",
+      "status": "PASS",
+      "ms": 75,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/X01/X01-1.png"
+      ]
+    },
+    {
+      "id": "X02",
+      "name": "Student cannot use admin APIs (HTTP 403)",
+      "group": "Security & validation",
+      "status": "PASS",
+      "ms": 62,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/X02/X02-1.png"
+      ]
+    },
+    {
+      "id": "X03",
+      "name": "Unauthenticated requests are rejected (HTTP 401)",
+      "group": "Security & validation",
+      "status": "PASS",
+      "ms": 42,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/X03/X03-1.png"
+      ]
+    },
+    {
+      "id": "X04",
+      "name": "Wrong password and empty login are rejected",
+      "group": "Security & validation",
+      "status": "PASS",
+      "ms": 78,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/X04/X04-1.png"
+      ]
+    },
+    {
+      "id": "X05",
+      "name": "Correct answers are never sent to the student before submission",
+      "group": "Security & validation",
+      "status": "PASS",
+      "ms": 97,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/X05/X05-1.png"
+      ]
+    },
+    {
+      "id": "X06",
+      "name": "Result is not available before submission (HTTP 403)",
+      "group": "Security & validation",
+      "status": "PASS",
+      "ms": 113,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/X06/X06-1.png"
+      ]
+    },
+    {
+      "id": "X07",
+      "name": "Duplicate submission is rejected (HTTP 409) and the score stays unchanged",
+      "group": "Security & validation",
+      "status": "PASS",
+      "ms": 111,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/X07/X07-1.png"
+      ]
+    },
+    {
+      "id": "X08",
+      "name": "Invalid answers are rejected (HTTP 400)",
+      "group": "Security & validation",
+      "status": "FAIL",
+      "ms": 110,
+      "intentional": true,
+      "expected": "200",
+      "actual": "400",
+      "explanation": "INTENTIONAL DEMONSTRATION FAILURE. \"HTTP status for choice 9\" was compared with a deliberately incorrect expected value (200). The application behaved correctly (actual: 400). This is not an application defect.",
+      "shots": [
+        "screenshots/X08/X08-1.png"
+      ]
+    },
+    {
+      "id": "X09",
+      "name": "The server calculates marks and ignores a score sent by the client",
+      "group": "Security & validation",
+      "status": "PASS",
+      "ms": 117,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/X09/X09-1.png"
+      ]
+    },
+    {
+      "id": "X10",
+      "name": "Passwords are stored as salted hashes",
+      "group": "Security & validation",
+      "status": "PASS",
+      "ms": 40,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/X10/X10-1.png"
+      ]
+    },
+    {
+      "id": "X11",
+      "name": "Student is blocked from the admin pages in the browser",
+      "group": "Security & validation",
+      "status": "PASS",
+      "ms": 588,
+      "intentional": false,
+      "expected": "",
+      "actual": "",
+      "explanation": "",
+      "shots": [
+        "screenshots/X11/X11-1.png"
+      ]
+    }
+  ]
+}

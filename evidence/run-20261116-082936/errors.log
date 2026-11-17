@@ -1,0 +1,8 @@
+[A04] Admin edits a student record
+INTENTIONAL DEMONSTRATION FAILURE. "Roll number of Student 2" was compared with a deliberately incorrect expected value (CS2026999). The application behaved correctly (actual: CS2026102). This is not an application defect.
+Error: INTENTIONAL_DEMO::{"label":"Roll number of Student 2","expected":"CS2026999","actual":"CS2026102"}
+
+[S1-6] Student 1 submits with confirmation and sees the correct result
+INTENTIONAL DEMONSTRATION FAILURE. "Score shown on result page" was compared with a deliberately incorrect expected value (9 / 10). The application behaved correctly (actual: 10 / 10). This is not an application defect.
+Error: INTENTIONAL_DEMO::{"label":"Score shown on result page","expected":"9 / 10","actual":"10 / 10"}
+

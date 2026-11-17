@@ -1,0 +1,26 @@
+[A09] Admin loads 10 questions into each examination
+INTENTIONAL DEMONSTRATION FAILURE. "Question counts per exam" was compared with a deliberately incorrect expected value (10,10,10,10). The application behaved correctly (actual: 11,10,10,10). This is not an application defect.
+Error: INTENTIONAL_DEMO::{"label":"Question counts per exam","expected":"10,10,10,10","actual":"11,10,10,10"}
+
+[A12] Admin assigns each examination to its student
+GENUINE FAILURE: Error: page.click: Target page, context or browser has been closed
+Error: page.click: Target page, context or browser has been closed
+
+[A13] Admin verifies students, exams, questions and assignments
+GENUINE FAILURE: Error: expect(received).toBe(expected) // Object.is equality | Expected: true | Received: false
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: true
+Received: false
+
+[S1-1] Student 1 logs in and sees only the assigned exam (Software Engineering)
+GENUINE FAILURE: AggregateError: apiRequestContext.get: connect ECONNREFUSED ::1:9000 | connect ECONNREFUSED 127.0.0.1:9000 | Call log: |   - → GET http://localhost:9000/api/test/state |     - user-agent: Playwright/1.65.1 (arm64; macOS 27.2) node/26.8 |     - accept: */*
+AggregateError: apiRequestContext.get: connect ECONNREFUSED ::1:9000
+connect ECONNREFUSED 127.0.0.1:9000
+Call log:
+  - → GET http://localhost:9000/api/test/state
+    - user-agent: Playwright/1.65.1 (arm64; macOS 27.2) node/26.8
+    - accept: */*
+    - accept-encoding: gzip,deflate,br
+
+
